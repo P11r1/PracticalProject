@@ -42,10 +42,10 @@ public class Tasks {
         this.isFinished = isFinished;
     }
 
-    public static void updateTasks(int id, String title, String description, Date dueDate) {
+    public static void updateTasks(String title) {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
-        Tasks tasks = session.get(Tasks.class, id);
+        Tasks tasks = session.get(Tasks.class, title); // correction by title
         try {
             session.merge(tasks);
             session.flush();
@@ -57,10 +57,10 @@ public class Tasks {
 
     }
 
-    public static void deleteTasks(int id) {
+    public static void deleteTasks(String title) {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
-        Tasks tasks = session.get(Tasks.class, id);
+        Tasks tasks = session.get(Tasks.class, title); // correction by title
         try {
             session.delete(tasks);
             session.flush();
