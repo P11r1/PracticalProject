@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 @Entity(name = "tasks")
 @Data
@@ -35,6 +36,7 @@ public class Tasks {
 
     static Session session = Database.getHibSesh();
 
+
     public Tasks(String title, String description, String dueDate, boolean isFinished) {
         this.title = title;
         this.description = description;
@@ -42,10 +44,10 @@ public class Tasks {
         this.isFinished = isFinished;
     }
 
-    public static void updateTasks(String title) {
+    public static void updateTasks(int id, String title, String description, String dueDate, boolean isFinished) {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
-        Tasks tasks = session.get(Tasks.class, title); // correction by title
+        Tasks tasks = session.get(Tasks.class, id); // correction by title
         try {
             session.merge(tasks);
             session.flush();
@@ -54,13 +56,17 @@ public class Tasks {
             trans.rollback();
             e.printStackTrace();
         }
-
     }
 
-    public static void deleteTasks(String title) {
+    public static void deleteTasks() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the task id you want to delete: ");
+        int id = scanner.nextInt();
+
         session.beginTransaction();
         Transaction trans = session.getTransaction();
-        Tasks tasks = session.get(Tasks.class, title); // correction by title
+        Tasks tasks = session.get(Tasks.class, id); // correction by title
         try {
             session.delete(tasks);
             session.flush();
@@ -98,10 +104,20 @@ public class Tasks {
             trans.rollback();
             e.printStackTrace();
         }
-
     }
 
+    public static void viewTasks(String title, String description, String dueDate, boolean isFinished) {
+        try {
+            session.beginTransaction();
+            List<Tasks> tasks = session.createQuery("from tasks where title").list();
 
+            for (Tasks task : tasks) {
+                System.out.println(task);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
