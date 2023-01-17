@@ -118,11 +118,16 @@ public class Tasks {
         }
     }
 
-    public static void createTasks(Tasks tasks) {
+    public static void createTasks() {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
+        Tasks task = testTask();
+
+
+
+
         try {
-            session.persist(tasks);
+            session.persist(task);
             session.flush();
             trans.commit();
         } catch (Exception e) {
@@ -131,18 +136,43 @@ public class Tasks {
         }
     }
 
-    public static void dueMethod() {
-        long currentTime = System.currentTimeMillis();
-        long plus47Hours = currentTime + (47 * 60 * 60 * 1000);
-        Timestamp plus47HoursTS = new Timestamp(plus47Hours);
+    public static Tasks testTask() {
+        Tasks task = new Tasks();
 
-        long plus48Hours = currentTime + (48 * 60 * 60 * 1000);
-        Timestamp plus48HoursTS = new Timestamp(plus48Hours);
+        Scanner scanner = new Scanner(System.in);
 
-        Query query = session.createQuery("from GroupNotes as gn where gn.zugwisenPersonId!=:val and gn.timeToend > :from and gn.timeToend < :to");
-        query.setParameter("from", plus47HoursTS);
-        query.setParameter("to", plus48HoursTS);
+        System.out.println("Enter the task title: ");
+        String title = scanner.next();
+
+        System.out.println("Enter the task description: ");
+        String description = scanner.next();
+
+        System.out.println("Enter due date: ");
+        String dueDate = scanner.next();
+
+        System.out.println("Is the task finished?");
+        boolean isFinished = scanner.hasNext();
+
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDueDate(Date.valueOf(dueDate));
+        task.setFinished(isFinished);
+        return task;
+
     }
+
+//    public static void dueMethod() {
+//        long currentTime = System.currentTimeMillis();
+//        long plus47Hours = currentTime + (47 * 60 * 60 * 1000);
+//        Timestamp plus47HoursTS = new Timestamp(plus47Hours);
+//
+//        long plus48Hours = currentTime + (48 * 60 * 60 * 1000);
+//        Timestamp plus48HoursTS = new Timestamp(plus48Hours);
+//
+//        Query query = session.createQuery("from GroupNotes as gn where gn.zugwisenPersonId!=:val and gn.timeToend > :from and gn.timeToend < :to");
+//        query.setParameter("from", plus47HoursTS);
+//        query.setParameter("to", plus48HoursTS);
+//    }
 }
 
 

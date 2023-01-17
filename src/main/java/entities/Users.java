@@ -31,7 +31,7 @@ public class Users {
 
     static Session session = Database.getHibSesh();
 
-    Scanner scanner = new Scanner(System.in);
+
 
     public Users(int age, String name, String email, boolean isAdmin) {
         this.age = age;
@@ -40,48 +40,71 @@ public class Users {
         this.Admin = Admin;
     }
 
-    public static void updateUser(int id, String title, String description, String dueDate) {
-        session.beginTransaction();
-        Transaction trans = session.getTransaction();
-        Users user = session.get(Users.class, id); // correction by title
-        try {
-            session.merge(user);
-            session.flush();
-            trans.commit();
-        } catch (Exception e) {
-            trans.rollback();
-            e.printStackTrace();
-        }
-    }
-
-    public static void deleteUser(int id) {
-        session.beginTransaction();
-        Transaction trans = session.getTransaction();
-        Users user = session.get(Users.class, id); // correction by title
-        try {
-            session.delete(user);
-            session.flush();
-            trans.commit();
-        } catch (Exception e) {
-            trans.rollback();
-            e.printStackTrace();
-        }
-    }
-
-    public static void listUser() {
+    public static void listUsers() {
 
         try {
             session.beginTransaction();
-            List<Users> user = session.createQuery("from accounts").list();
+            List<Users> users = session.createQuery("from accounts").list();
 
-            for (Users users : user) {
+            for (Users user : users) {
                 System.out.println(users);
             }
-
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static void deleteUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the ID of the user you want to delete: ");
+        int id = scanner.nextInt();
+
+        session.beginTransaction();
+        Transaction trans = session.getTransaction();
+        Users users = session.get(Users.class, id);
+        try {
+            session.delete(users);
+            session.flush();
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            e.printStackTrace();
+        }
+    }
+    public static void updateUser() {
+        session.beginTransaction();
+        Transaction trans = session.getTransaction();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the ID of the user you wish to update");
+        int id = scanner.nextInt();
+
+        System.out.println("Enter the full name of the user: ");
+        String name = scanner.next();
+
+        System.out.println("Please enter the new age for the user: ");
+        int age = scanner.nextInt();
+
+        System.out.println("Please enter the Email of the user: ");
+        String email = scanner.next();
+
+        System.out.println("Is the user an admin? Either true or false");
+        boolean isAdmin = scanner.nextBoolean();
+
+        Users users = session.get(Users.class, id);
+        users.setName(name);
+        users.setAge(age);
+        users.setEmail(email);
+        users.setAdmin(isAdmin);
+        try {
+            session.merge(users);
+            session.flush();
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            e.printStackTrace();
+        }
+
     }
 
     public static void createUser(Users user) {

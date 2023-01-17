@@ -7,7 +7,7 @@ import org.hibernate.Session;
 
 public class Main {
     public static void main(String[] args) {
-        Session session = Database.getHibSesh();
+     //   Session session = Database.getHibSesh();
         // Tasks tasks = session.find(Tasks.class, 4);
         // System.out.println(tasks);
         //Tasks.deleteTasks();

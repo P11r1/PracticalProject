@@ -20,6 +20,7 @@
 
         <!-- Annotated entity classes -->
         <mapping class="entities.Tasks" />
+        <mapping class="entities.Users" />
 
 
 
