@@ -45,10 +45,31 @@ public class Tasks {
         this.isFinished = isFinished;
     }
 
-    public static void updateTasks(int id, String title, String description, String dueDate, boolean isFinished) {
+    public static void updateTasks() {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the task id you want do update: ");
+        int id = scanner.nextInt();
+
+        System.out.println("Enter the title: ");
+        String title = scanner.next();
+
+        System.out.println("Enter the description: ");
+        String description = scanner.next();
+
+        System.out.println("Enter the due date: ");
+        String dueDate = scanner.next();
+
+        System.out.println("Is the task finished?");
+        boolean isFinished = scanner.hasNext();
+
         Tasks tasks = session.get(Tasks.class, id); // correction by title
+        tasks.setTitle(title);
+        tasks.setDescription(description);
+        tasks.setDueDate(Date.valueOf(dueDate));
+        tasks.setFinished(isFinished);
 
         try {
             session.merge(tasks);
@@ -59,7 +80,7 @@ public class Tasks {
             e.printStackTrace();
         }
 
-        Duration dueTime = Duration.ofDays(7);
+
     }
 
     public static void deleteTasks() {

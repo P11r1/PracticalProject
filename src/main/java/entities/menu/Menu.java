@@ -58,7 +58,8 @@ public class Menu {
                 Tasks.listTasks();
                 usersAccount();
             case 2:
-                Tasks.updateTasks(Integer.valueOf(null),"","","", Boolean.parseBoolean(""));
+                Tasks.listTasks();
+                Tasks.updateTasks();
                 usersAccount();
             case 3:
                 Tasks.listTasks();
