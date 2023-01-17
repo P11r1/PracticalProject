@@ -107,9 +107,11 @@ public class Users {
 
     }
 
-    public static void createUser(Users user) {
+    public static void createUser() {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
+
+        Users user = testUser();
         try {
             session.persist(user);
             session.flush();
@@ -118,5 +120,30 @@ public class Users {
             trans.rollback();
             e.printStackTrace();
         }
+    }
+
+    public static Users testUser() {
+        Users user = new Users();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the user name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter the user age: ");
+        int age = scanner.nextInt();
+
+        System.out.println("Enter the user email: ");
+        String email = scanner.next();
+
+        System.out.println("Is user admin? (true/false)");
+        boolean admin = scanner.nextBoolean();
+
+        user.setName(name);
+        user.setAge(age);
+        user.setEmail(email);
+        user.setAdmin(admin);
+        return user;
+
     }
 }

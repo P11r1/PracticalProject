@@ -91,8 +91,8 @@ public class Menu {
                 chooseAccount();
                 break;
             case 1:
-//                Users.createUser();
-//                adminAccount();
+                Users.createUser();
+                adminAccount();
                 break;
             case 2:
                 Users.listUsers();
