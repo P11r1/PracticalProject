@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -48,6 +49,7 @@ public class Tasks {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
         Tasks tasks = session.get(Tasks.class, id); // correction by title
+
         try {
             session.merge(tasks);
             session.flush();
@@ -56,6 +58,8 @@ public class Tasks {
             trans.rollback();
             e.printStackTrace();
         }
+
+        Duration dueTime = Duration.ofDays(7);
     }
 
     public static void deleteTasks() {
@@ -106,17 +110,17 @@ public class Tasks {
         }
     }
 
-    public static void viewTasks(String title, String description, String dueDate, boolean isFinished) {
-        try {
-            session.beginTransaction();
-            List<Tasks> tasks = session.createQuery("from tasks where title").list();
+    public static void dueMethod() {
+        long currentTime = System.currentTimeMillis();
+        long plus47Hours = currentTime + (47 * 60 * 60 * 1000);
+        Timestamp plus47HoursTS = new Timestamp(plus47Hours);
 
-            for (Tasks task : tasks) {
-                System.out.println(task);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        long plus48Hours = currentTime + (48 * 60 * 60 * 1000);
+        Timestamp plus48HoursTS = new Timestamp(plus48Hours);
+
+        Query query = session.createQuery("from GroupNotes as gn where gn.zugwisenPersonId!=:val and gn.timeToend > :from and gn.timeToend < :to");
+        query.setParameter("from", plus47HoursTS);
+        query.setParameter("to", plus48HoursTS);
     }
 }
 
