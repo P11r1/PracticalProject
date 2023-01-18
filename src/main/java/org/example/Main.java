@@ -1,5 +1,6 @@
 package org.example;
 
+import entities.Tasks;
 import entities.menu.Menu;
 
 import java.util.Calendar;
@@ -18,8 +19,9 @@ public class Main {
         // Tasks.createTasks(tasks);
         // Tasks.updateTasks(2, "ns", "midagi", );
         // Tasks.viewTasks("suva", "savi", "2022-10-10", true);
-          Menu.chooseAccount();
+         // Menu.chooseAccount();
         // Tasks.listTasks();
+        Tasks.saodgi();
 
 
 //        Timer timer = new Timer();

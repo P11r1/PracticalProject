@@ -3,14 +3,21 @@ package entities;
 import db.Database;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import timer.Timer;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -119,9 +126,9 @@ public class Tasks {
         }
     }
 
-    public static void criticalTasks() {
-        if ()
-    }
+    //  public static void criticalTasks() {
+    //      if ()
+    // }
 
     public static void createTasks() {
         session.beginTransaction();
@@ -157,19 +164,43 @@ public class Tasks {
 
         task.setTitle(title);
         task.setDescription(description);
-       // task.setDueDate(Date.valueOf(dueDate));
+        // task.setDueDate(Date.valueOf(dueDate));
         task.setFinished(isFinished);
         return task;
 
     }
 
+
     public static void addDueDate() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the due date for the task (yyyy-MM-dd) : ");
+        List<Tasks> criticalList = new ArrayList<>();
 
+        System.out.println("Enter the due date for the task (yyyy-MM-dd) : ");
         LocalDate dueDate = LocalDate.parse(scanner.nextLine());
+
         Tasks task = testTask(); //get the task object
         task.setDueDate(Date.valueOf(dueDate)); // set the due date
+
+
+        java.sql.Date futureDate = java.sql.Date.valueOf(dueDate);
+        java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+
+        Period period = Period.between(currentDate.toLocalDate(), futureDate.toLocalDate());
+
+        int days = period.getDays();
+        int month = period.getMonths();
+        int year = period.getYears();
+
+        System.out.println("Number of days between current date and task due date :" + "days" + days + "months : " + month + "years : " + year);
+        if ((Date.valueOf(futureDate.toLocalDate()) - Date.valueOf(currentDate.toLocalDate())) <= 5) {
+            criticalList.add(task);
+            System.out.println(task);
+        }else {
+            return task;
+
+
+            //   LocalDate todayDate = LocalDate
+        // if (dueDate )
 
         try {
 
@@ -181,6 +212,26 @@ public class Tasks {
             e.printStackTrace();
         }
     }
+    public static List getDueDate() {
+        Criteria criteria = session.createCriteria(Tasks.class);
+
+        criteria.add(Expression.gt("due_date", 10));
+
+        criteria.setProjection(Projections.property("due_date"));
+
+        criteria.addOrder(Order.asc("due_date"));
+
+        return criteria.list();
+    }
+
+    public static void saodgi() {
+        Session session = Database.getHibSesh();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT due_date FROM Tasks");
+        List dueDates = query.getResultList();
+        dueDates.forEach(System.out::println);
+    }
+
 }
 
 
