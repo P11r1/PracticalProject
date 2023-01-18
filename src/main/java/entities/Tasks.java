@@ -145,21 +145,40 @@ public class Tasks {
         System.out.println("Enter the task description: ");
         String description = scanner.nextLine();
 
-        System.out.println("Enter due date: ");
-        String dueDate = scanner.next();
+//        System.out.println("Enter due date: ");
+//        String dueDate = scanner.next();
 
         System.out.println("Is the task finished?");
         boolean isFinished = scanner.nextBoolean(); // Fix
 
         task.setTitle(title);
         task.setDescription(description);
-        task.setDueDate(Date.valueOf(dueDate));
+       // task.setDueDate(Date.valueOf(dueDate));
         task.setFinished(isFinished);
         return task;
 
     }
 
+    public static void addDueDate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the due date for the task (yyyy-MM-dd) : ");
 
+        LocalDate dueDate = LocalDate.parse(scanner.nextLine());
+        Tasks task = testTask(); //get the task object
+        task.setDueDate(Date.valueOf(dueDate)); // set the due date
+
+        try {
+
+            session.beginTransaction();
+            session.saveOrUpdate(task);
+            session.getTransaction().commit();
+            System.out.println("Task due date added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
 
 

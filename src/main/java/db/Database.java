@@ -17,7 +17,6 @@ public class Database {
         }
         return session;
     }
-
 }
 
 

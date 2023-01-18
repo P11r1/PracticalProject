@@ -43,7 +43,6 @@ public class Menu {
         System.out.println("3.Delete the tasks");
         System.out.println("4.Create tasks"); // User can update the tasks.
         // So we do not need to add something.
-        System.out.println("4.View progress of the project by entering the project name");
         System.out.println("5.Set due dates for tasks");
         // User can update the tasks.
         // So we do not need to add something.
@@ -70,6 +69,15 @@ public class Menu {
             case 4:
                 Tasks.createTasks();
                 usersAccount();
+            case 5:
+                Tasks.listTasks();
+                Tasks.addDueDate();
+                usersAccount();
+                break;
+            default:
+                System.out.println("Invalid option!");
+                usersAccount();
+                break;
 
         }
     }
