@@ -44,6 +44,7 @@ public class Menu {
         System.out.println("4.Create tasks"); // User can update the tasks.
         // So we do not need to add something.
         System.out.println("5.Set due dates for tasks");
+        System.out.println("6.Task coming up soon");
         // User can update the tasks.
         // So we do not need to add something.
 
@@ -58,22 +59,28 @@ public class Menu {
             case 1:
                 Tasks.listTasks();
                 usersAccount();
+                break;
             case 2:
                 Tasks.listTasks();
                 Tasks.updateTasks();
                 usersAccount();
+                break;
             case 3:
                 Tasks.listTasks();
                 Tasks.deleteTasks();
                 usersAccount();
+                break;
             case 4:
                 Tasks.createTasks();
                 usersAccount();
+                break;
             case 5:
                 Tasks.listTasks();
                 Tasks.addDueDate();
                 usersAccount();
                 break;
+            case 6:
+
             default:
                 System.out.println("Invalid option!");
                 usersAccount();

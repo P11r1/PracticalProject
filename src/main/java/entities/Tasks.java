@@ -119,6 +119,10 @@ public class Tasks {
         }
     }
 
+    public static void criticalTasks() {
+        if ()
+    }
+
     public static void createTasks() {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
