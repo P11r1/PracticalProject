@@ -76,10 +76,10 @@ public class Menu {
 
     public static void adminAccount() {
         System.out.println("Pick an option to continue : ");
-        System.out.println("1.Create the user: ");
-        System.out.println("2.View the users: ");
-        System.out.println("3.Update the users: ");
-        System.out.println("4.Delete the user: ");
+        System.out.println("1.Create the user");
+        System.out.println("2.View the users");
+        System.out.println("3.Update the users");
+        System.out.println("4.Delete the user");
 
 
         System.out.println();
@@ -106,7 +106,7 @@ public class Menu {
             case 4:
                 Users.listUsers();
                 Users.deleteUser();
-                usersAccount();
+                adminAccount(); //Fix
                 break;
             default:
                 System.out.println("Invalid option!");

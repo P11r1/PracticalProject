@@ -1,9 +1,7 @@
 package org.example;
 
-import db.Database;
-import entities.Tasks;
-import entities.menu.Menu;
-import org.hibernate.Session;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,8 +15,20 @@ public class Main {
         // Tasks.createTasks(tasks);
         // Tasks.updateTasks(2, "ns", "midagi", );
         // Tasks.viewTasks("suva", "savi", "2022-10-10", true);
-          Menu.chooseAccount();
+        //  Menu.chooseAccount();
         // Tasks.listTasks();
+
+
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Check due date if method here");
+            }
+        };
+        timer.schedule(task, 1000);
+
 
     }
 }

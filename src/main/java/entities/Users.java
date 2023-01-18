@@ -33,7 +33,7 @@ public class Users {
 
 
 
-    public Users(int age, String name, String email, boolean isAdmin) {
+    public Users(int age, String name, String email, boolean Admin) {
         this.age = age;
         this.name = name;
         this.email = email;
@@ -47,7 +47,7 @@ public class Users {
             List<Users> users = session.createQuery("from accounts").list();
 
             for (Users user : users) {
-                System.out.println(users);
+                System.out.println(user); // Fix
             }
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -127,7 +127,7 @@ public class Users {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the user name: ");
+        System.out.println("Enter the user full name: "); // fix
         String name = scanner.nextLine();
 
         System.out.println("Enter the user age: ");

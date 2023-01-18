@@ -50,6 +50,7 @@ public class Tasks {
         Transaction trans = session.getTransaction();
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the task id you want do update: ");
         int id = scanner.nextInt();
 
@@ -63,9 +64,9 @@ public class Tasks {
         String dueDate = scanner.next();
 
         System.out.println("Is the task finished?");
-        boolean isFinished = scanner.hasNext();
+        boolean isFinished = scanner.nextBoolean(); // Fix
 
-        Tasks tasks = session.get(Tasks.class, id); // correction by title
+        Tasks tasks = session.get(Tasks.class, id);
         tasks.setTitle(title);
         tasks.setDescription(description);
         tasks.setDueDate(Date.valueOf(dueDate));
@@ -91,7 +92,7 @@ public class Tasks {
 
         session.beginTransaction();
         Transaction trans = session.getTransaction();
-        Tasks tasks = session.get(Tasks.class, id); // correction by title
+        Tasks tasks = session.get(Tasks.class, id);
         try {
             session.delete(tasks);
             session.flush();
@@ -123,9 +124,6 @@ public class Tasks {
         Transaction trans = session.getTransaction();
         Tasks task = testTask();
 
-
-
-
         try {
             session.persist(task);
             session.flush();
@@ -142,16 +140,16 @@ public class Tasks {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the task title: ");
-        String title = scanner.next();
+        String title = scanner.nextLine();
 
         System.out.println("Enter the task description: ");
-        String description = scanner.next();
+        String description = scanner.nextLine();
 
         System.out.println("Enter due date: ");
         String dueDate = scanner.next();
 
         System.out.println("Is the task finished?");
-        boolean isFinished = scanner.hasNext();
+        boolean isFinished = scanner.nextBoolean(); // Fix
 
         task.setTitle(title);
         task.setDescription(description);
@@ -161,18 +159,7 @@ public class Tasks {
 
     }
 
-//    public static void dueMethod() {
-//        long currentTime = System.currentTimeMillis();
-//        long plus47Hours = currentTime + (47 * 60 * 60 * 1000);
-//        Timestamp plus47HoursTS = new Timestamp(plus47Hours);
-//
-//        long plus48Hours = currentTime + (48 * 60 * 60 * 1000);
-//        Timestamp plus48HoursTS = new Timestamp(plus48Hours);
-//
-//        Query query = session.createQuery("from GroupNotes as gn where gn.zugwisenPersonId!=:val and gn.timeToend > :from and gn.timeToend < :to");
-//        query.setParameter("from", plus47HoursTS);
-//        query.setParameter("to", plus48HoursTS);
-//    }
+
 }
 
 
