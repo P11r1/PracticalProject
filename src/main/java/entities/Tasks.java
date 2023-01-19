@@ -116,6 +116,7 @@ public class Tasks {
             session.beginTransaction();
             List<Tasks> tasks = session.createQuery("from tasks").list();
 
+
             for (Tasks task : tasks) {
                 System.out.println(task);
             }
@@ -195,44 +196,36 @@ public class Tasks {
         if ((Date.valueOf(futureDate.toLocalDate()) - Date.valueOf(currentDate.toLocalDate())) <= 5) {
             criticalList.add(task);
             System.out.println(task);
-        }else {
+        } else {
             return task;
-
+        }
 
             //   LocalDate todayDate = LocalDate
-        // if (dueDate )
+            // if (dueDate )
 
-        try {
+            try {
 
-            session.beginTransaction();
-            session.saveOrUpdate(task);
-            session.getTransaction().commit();
-            System.out.println("Task due date added successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
+                session.beginTransaction();
+                session.saveOrUpdate(task);
+                session.getTransaction().commit();
+                System.out.println("Task due date added successfully");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        public static void saodgi () {
+            Session session = Database.getHibSesh();
+            Query query = session.createQuery("SELECT dueDate FROM tasks");
+            List dueDates = query.getResultList();
+            dueDates.forEach(System.out::println);
+            // We should now take the elements from the list and compare them to current date, if less than 4 days then
+            // add to critical list and print out these
+        }
+
     }
-    public static List getDueDate() {
-        Criteria criteria = session.createCriteria(Tasks.class);
-
-        criteria.add(Expression.gt("due_date", 10));
-
-        criteria.setProjection(Projections.property("due_date"));
-
-        criteria.addOrder(Order.asc("due_date"));
-
-        return criteria.list();
-    }
-
-    public static void saodgi() {
-        Session session = Database.getHibSesh();
-        session.beginTransaction();
-        Query query = session.createQuery("SELECT due_date FROM Tasks");
-        List dueDates = query.getResultList();
-        dueDates.forEach(System.out::println);
-    }
-
 }
+
 
 
 
