@@ -75,12 +75,9 @@ public class Menu {
                 usersAccount();
                 break;
             case 5:
-                Tasks.listTasks();
-             //   Tasks.addDueDate();
+                Tasks.criticalTasks();
                 usersAccount();
                 break;
-            case 6:
-
             default:
                 System.out.println("Invalid option!");
                 usersAccount();

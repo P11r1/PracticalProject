@@ -21,8 +21,9 @@ public class Main {
         // Tasks.viewTasks("suva", "savi", "2022-10-10", true);
           Menu.chooseAccount();
         // Tasks.listTasks();
-       // Tasks.saodgi();
        // Tasks.getDueDate();
+        //Tasks.TaskReminder();
+       // Tasks.addDueDate();
 
 
 //        Timer timer = new Timer();
