@@ -41,15 +41,11 @@ public class Menu {
         System.out.println("1.View the tasks");
         System.out.println("2.Update the tasks");
         System.out.println("3.Delete the tasks");
-        System.out.println("4.Create tasks"); // User can update the tasks.
-        // So we do not need to add something.
-        System.out.println("5.Set due dates for tasks");
-        System.out.println("6.Task coming up soon");
-        // User can update the tasks.
-        // So we do not need to add something.
-
+        System.out.println("4.Create tasks");
+        System.out.println("5.Critical tasks");
         System.out.println();
         System.out.println("Select an option or enter 0 to go back to the account menu : ");
+
         int option = scanner.nextInt();
 
         switch (option) {
@@ -82,7 +78,6 @@ public class Menu {
                 System.out.println("Invalid option!");
                 usersAccount();
                 break;
-
         }
     }
 

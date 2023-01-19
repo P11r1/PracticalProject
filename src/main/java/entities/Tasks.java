@@ -3,22 +3,16 @@ package entities;
 import db.Database;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import timer.Timer;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.TimerTask;
 
 @Entity(name = "tasks")
 @Data
@@ -153,7 +147,7 @@ public class Tasks {
         System.out.println("Enter the task description: ");
         String description = scanner.nextLine();
 
-        System.out.println("Enter the due date for the task (yyyy-MM-dd) : ");
+        System.out.println("Enter the due date for the task (yyyy-MM-dd): ");
         LocalDate dueDate = LocalDate.parse(scanner.nextLine());
 
         System.out.println("Is the task finished?");
@@ -184,57 +178,12 @@ public class Tasks {
     }
 
 
-
-//    public static Tasks addDueDate() {
-//        Scanner scanner = new Scanner(System.in);
-//        List<Tasks> criticalList = new ArrayList<>();
-//
-//        System.out.println("Enter the due date for the task (yyyy-MM-dd) : ");
-//        LocalDate dueDate = LocalDate.parse(scanner.nextLine());
-//
-//        Tasks task = testTask(); //get the task object
-//        task.setDueDate(Date.valueOf(dueDate)); // set the due date
-//
-//
-//        java.sql.Date futureDate = java.sql.Date.valueOf(dueDate);
-//        java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
-//
-//        Period period = Period.between(currentDate.toLocalDate(), futureDate.toLocalDate());
-//
-//        int days = period.getDays();
-//        int month = period.getMonths();
-//        int year = period.getYears();
-//
-//        System.out.println("Number of days between current date and task due date: " + "days: " + days + "months: " + month + "years: " + year);
-//        if (days <= 4) {
-//            criticalList.add(task);
-//            System.out.println(task);
-//            System.out.println("The task is due soon");
-//
-//        } else {
-//            System.out.println("You have time to finish the task");
-//        }
-//
-//        try {
-//            session.beginTransaction();
-//            session.saveOrUpdate(task);
-//            session.getTransaction().commit();
-//            System.out.println("Task due date added successfully");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return task;
-//    }
-
     public static void criticalTasks() {
-        Query query = session.createQuery("FROM tasks WHERE dueDate < current_date + 4");
+        Query query = session.createQuery("FROM tasks WHERE dueDate < current_date + 4 AND dueDate > current_date AND isFinished = false ORDER BY dueDate");
         List dueDates = query.getResultList();
         dueDates.forEach(System.out::println);
         System.out.println("These tasks must be finished before 4 days!");
-        // We should now take the elements from the list and compare them to current date, if less than 4 days then
-        // add to critical list and print out these
     }
-
 }
 
 
