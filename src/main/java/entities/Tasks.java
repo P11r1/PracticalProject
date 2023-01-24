@@ -52,19 +52,22 @@ public class Tasks {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the task id you want do update: ");
-        int id = scanner.nextInt();
+        int id = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Enter the title: ");
-        String title = scanner.next();
+        String title = scanner.nextLine();
 
         System.out.println("Enter the description: ");
-        String description = scanner.next();
+        String description = scanner.nextLine();
 
         System.out.println("Enter the due date: ");
-        String dueDate = scanner.next();
+        String dueDate = scanner.nextLine();
 
         System.out.println("Is the task finished?");
-        boolean isFinished = scanner.nextBoolean(); // Fix
+        boolean isFinished = scanner.nextBoolean();
+
+
+
 
         Tasks tasks = session.get(Tasks.class, id);
         tasks.setTitle(title);
@@ -158,21 +161,21 @@ public class Tasks {
         task.setDueDate(Date.valueOf(dueDate));
         task.setFinished(isFinished);
 
-        java.sql.Date futureDate = java.sql.Date.valueOf(dueDate);
-        java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
-
-        Period period = Period.between(currentDate.toLocalDate(), futureDate.toLocalDate());
-
-        int days = period.getDays();
-        int month = period.getMonths();
-        int year = period.getYears();
-
-        System.out.println("Number of days between current date and task due date: " + "days: " + days + " " + "months: " + month + " " + "years: " + year);
-        if (days <= 4) {
-            System.out.println("The task is due soon");
-        } else {
-            System.out.println("You have time to finish the task");
-        }
+//        java.sql.Date futureDate = java.sql.Date.valueOf(dueDate);
+//        java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+//
+//        Period period = Period.between(currentDate.toLocalDate(), futureDate.toLocalDate());
+//
+//        int days = period.getDays();
+//        int month = period.getMonths();
+//        int year = period.getYears();
+//
+//        System.out.println("Number of days between current date and task due date: " + "days: " + days + " " + "months: " + month + " " + "years: " + year);
+//        if (days <= 4) {
+//            System.out.println("The task is due soon");
+//        } else {
+//            System.out.println("You have time to finish the task");
+//        }
 
         return task;
     }

@@ -1,49 +1,26 @@
 package org.example;
 
-import entities.Tasks;
 import entities.menu.Menu;
 
-import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
+/**
+ * Task Management Application
+ *
+ * The application should allow users to interact with it via a console-based interface.
+ * Users should be able to create and manage tasks by entering task details such as title, description, and due date. They should also be able to assign them to different projects.
+ * Users should be able to view, update, and delete tasks by entering the task title, and mark them as complete.
+ * The application should allow users to view the progress of different projects and see which tasks are still pending and which are completed by entering the project name.
+ * Users should be able to set due dates for tasks and receive reminders when a task is coming due.
+ * Admins should be able to manage user accounts via the console interface.
+ * The application should use Hibernate to interact with a PostgreSQL database to store and retrieve information about tasks, projects, and users.
+ * Object-oriented principles should be used to model the tasks, projects, and users within the system.
+ * Collections can be used to store the tasks and projects.
+ * Design patterns can be used to implement the overall architecture of the system.
+ *
+ * @author Marko
+ */
 
 public class Main {
     public static void main(String[] args) {
-     //   Session session = Database.getHibSesh();
-        // Tasks tasks = session.find(Tasks.class, 4);
-        // System.out.println(tasks);
-        //Tasks.deleteTasks();
-        //Tasks tasks = session.find(Tasks.class, 1);
-        // System.out.println(tasks);
-        //Tasks tasks = new Tasks("suva", "savi", "2022-10-10", true);
-        // Tasks.createTasks(tasks);
-        // Tasks.updateTasks(2, "ns", "midagi", );
-        // Tasks.viewTasks("suva", "savi", "2022-10-10", true);
           Menu.chooseAccount();
-        // Tasks.listTasks();
-       // Tasks.getDueDate();
-        //Tasks.TaskReminder();
-       // Tasks.addDueDate();
-
-
-//        Timer timer = new Timer();
-//
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                System.out.println("Check due date if method here");
-//            }
-//        };
-//
-//        Calendar date = Calendar.getInstance();
-//        date.set(Calendar.HOUR,12);
-//        date.set(Calendar.MINUTE, 0);
-//        date.set(Calendar.SECOND,0);
-//
-//       // timer.schedule(task, 1000);
-//        timer.schedule(task, date.getTime());
-
-
-
     }
 }

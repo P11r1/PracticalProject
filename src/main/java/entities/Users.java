@@ -32,7 +32,6 @@ public class Users {
     static Session session = Database.getHibSesh();
 
 
-
     public Users(int age, String name, String email, boolean Admin) {
         this.age = age;
         this.name = name;
@@ -54,6 +53,7 @@ public class Users {
             e.printStackTrace();
         }
     }
+
     public static void deleteUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the ID of the user you want to delete: ");
@@ -71,6 +71,7 @@ public class Users {
             e.printStackTrace();
         }
     }
+
     public static void updateUser() {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
@@ -127,7 +128,7 @@ public class Users {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the user full name: "); // fix
+        System.out.println("Enter the user full name: ");
         String name = scanner.nextLine();
 
         System.out.println("Enter the user age: ");
