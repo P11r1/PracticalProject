@@ -1,6 +1,7 @@
 package entities;
 
 import db.Database;
+import entities.menu.Menu;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -9,8 +10,6 @@ import org.hibernate.Transaction;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,7 +44,106 @@ public class Tasks {
         this.isFinished = isFinished;
     }
 
-    public static void updateTasks() {
+    public static void updateMenu() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println();
+        System.out.println("1. Update all the fields");
+        System.out.println("2. Update by field");
+        System.out.println("0. Exit");
+
+        int option;
+        option = scanner.nextInt();
+
+        switch (option) {
+            case 0:
+                Menu.usersAccount();
+            case 1:
+                updateAllTasks();
+                break;
+            case 2:
+                updateByFieldName();
+                break;
+            default:
+                System.out.println("Invalid option!");
+        }
+    }
+
+    public static Tasks updateByFieldName() {
+        Scanner scanner = new Scanner(System.in);
+        Tasks tasks = enterIdToUpdateByField();
+
+        System.out.println("Which field you want to update?");
+        System.out.println("1. Title");
+        System.out.println("2. Description");
+        System.out.println("3. Due date");
+        System.out.println("4. Status");
+        System.out.println("0. Exit");
+
+        int option;
+        option = scanner.nextInt();
+
+        switch (option) {
+            case 0:
+                Menu.usersAccount();
+                break;
+            case 1:
+                System.out.println("Enter the title");
+                String title = scanner.next();
+                tasks.setTitle(title);
+                updateMenu();
+                break;
+            case 2:
+                System.out.println("Enter the description");
+                String description = scanner.next();
+                tasks.setDescription(description);
+                updateMenu();
+                break;
+            case 3:
+                System.out.println("Enter the due date");
+                String dueDate = scanner.next();
+                tasks.setDueDate(Date.valueOf(dueDate));
+                updateMenu();
+                break;
+            case 4:
+                System.out.println("Enter the status");
+                boolean isFinished = scanner.nextBoolean();
+                tasks.setFinished(isFinished);
+                updateMenu();
+                break;
+            default:
+                System.out.println("Invalid option!");
+                break;
+        }
+
+        return tasks;
+
+    }
+
+    public static Tasks enterIdToUpdateByField() {
+        session.beginTransaction();
+        Transaction trans = session.getTransaction();
+        Scanner scanner = new Scanner(System.in);
+
+
+        System.out.println("Enter the task id you want do update: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        Tasks tasks = session.get(Tasks.class, id);
+
+        try {
+            session.merge(tasks);
+            session.flush();
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            e.printStackTrace();
+        }
+
+        return tasks;
+    }
+
+    public static void updateAllTasks() {
         session.beginTransaction();
         Transaction trans = session.getTransaction();
 
@@ -60,14 +158,11 @@ public class Tasks {
         System.out.println("Enter the description: ");
         String description = scanner.nextLine();
 
-        System.out.println("Enter the due date: ");
+        System.out.println("Enter the due date for the task (yyyy-MM-dd): ");
         String dueDate = scanner.nextLine();
 
         System.out.println("Is the task finished?");
         boolean isFinished = scanner.nextBoolean();
-
-
-
 
         Tasks tasks = session.get(Tasks.class, id);
         tasks.setTitle(title);
@@ -83,13 +178,13 @@ public class Tasks {
             trans.rollback();
             e.printStackTrace();
         }
-
-
     }
+
 
     public static void deleteTasks() {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println();
         System.out.println("Enter the task id you want to delete: ");
         int id = scanner.nextInt();
 
@@ -114,7 +209,9 @@ public class Tasks {
 
 
             for (Tasks task : tasks) {
+                System.out.println("--------------------------------------------------------------------------------");
                 System.out.println(task);
+
             }
 
             session.getTransaction().commit();
@@ -140,7 +237,6 @@ public class Tasks {
 
     public static Tasks testTask() {
         Tasks task = new Tasks();
-        List<Tasks> criticalList = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -184,8 +280,9 @@ public class Tasks {
     public static void criticalTasks() {
         Query query = session.createQuery("FROM tasks WHERE dueDate < current_date + 4 AND dueDate > current_date AND isFinished = false ORDER BY dueDate");
         List dueDates = query.getResultList();
+        System.out.println();
         dueDates.forEach(System.out::println);
-        System.out.println("These tasks must be finished before 4 days!");
+        System.out.println("THESE TASKS MUST BE FINISHED BEFORE 4 DAYS!");
     }
 }
 

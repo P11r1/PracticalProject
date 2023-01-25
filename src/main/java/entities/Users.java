@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -80,7 +79,7 @@ public class Users {
         System.out.println("Enter the ID of the user you wish to update");
         int id = scanner.nextInt();
 
-        System.out.println("Enter the full name of the user: ");
+        System.out.println("Please enter the full name of the user: ");
         String name = scanner.next();
 
         System.out.println("Please enter the new age for the user: ");

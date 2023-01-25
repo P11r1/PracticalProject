@@ -11,7 +11,7 @@ public class Menu {
     static Scanner scanner = new Scanner(System.in);
 
     public static void chooseAccount() {
-        System.out.println("Choose an account for continue : ");
+        System.out.println("Choose an account to continue: ");
         System.out.println("1. Users");
         System.out.println("2. Admin");
 
@@ -34,17 +34,18 @@ public class Menu {
         }
     }
 
-
     public static void usersAccount() {
 
-        System.out.println("Pick an option to continue : ");
-        System.out.println("1.View the tasks");
-        System.out.println("2.Update the tasks");
-        System.out.println("3.Delete the tasks");
-        System.out.println("4.Create tasks");
-        System.out.println("5.Critical tasks");
         System.out.println();
-        System.out.println("Select an option or enter 0 to go back to the account menu : ");
+        System.out.println("Pick an option to continue: \n");
+        System.out.println("1. View the tasks");
+        System.out.println("2. Update tasks");
+        System.out.println("3. Delete tasks");
+        System.out.println("4. Create tasks");
+        System.out.println("5. Critical tasks");
+        System.out.println("0. Exit");
+        System.out.println();
+        System.out.println("Select an option: ");
 
         int option = scanner.nextInt();
 
@@ -58,7 +59,7 @@ public class Menu {
                 break;
             case 2:
                 Tasks.listTasks();
-                Tasks.updateTasks();
+                Tasks.updateMenu();
                 usersAccount();
                 break;
             case 3:
@@ -82,15 +83,16 @@ public class Menu {
     }
 
     public static void adminAccount() {
-        System.out.println("Pick an option to continue : ");
+        System.out.println("Pick an option to continue: \n ");
         System.out.println("1.Create the user");
         System.out.println("2.View the users");
         System.out.println("3.Update the users");
         System.out.println("4.Delete the user");
+        System.out.println("5. Exit");
 
 
         System.out.println();
-        System.out.println("Select an option or enter 0 to go back to the account menu : ");
+        System.out.println("Select an option: ");
         int option = scanner.nextInt();
 
         switch (option) {
@@ -119,10 +121,8 @@ public class Menu {
                 System.out.println("Invalid option!");
                 usersAccount();
                 break;
-
         }
     }
-
 }
 
 
